@@ -14,6 +14,7 @@ interface GlobalConfigItem {
 async function patchGlobalConfig(items: GlobalConfigItem[]) {
   const globalConfigId = process.env.GLOBAL_CONFIG_ID;
   const token = process.env.GLOBAL_CONFIG_TOKEN;
+  const teamId = process.env.GLOBAL_CONFIG_TEAM_ID;
 
   if (!globalConfigId || !token) {
     throw new Error(
@@ -21,17 +22,21 @@ async function patchGlobalConfig(items: GlobalConfigItem[]) {
     );
   }
 
-  const res = await fetch(
+  const url = new URL(
     `https://api.vercel.com/v1/global-config/${globalConfigId}/items`,
-    {
-      method: "PATCH",
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ items }),
-    },
   );
+  if (teamId) {
+    url.searchParams.set("teamId", teamId);
+  }
+
+  const res = await fetch(url, {
+    method: "PATCH",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ items }),
+  });
 
   if (!res.ok) {
     const errorBody = await res.text();

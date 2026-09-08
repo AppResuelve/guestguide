@@ -13,11 +13,11 @@ interface EdgeConfigItem {
 
 async function patchEdgeConfig(items: EdgeConfigItem[]) {
   const edgeConfigId = process.env.EDGE_CONFIG_ID;
-  const token = process.env.VERCEL_API_TOKEN;
+  const token = process.env.EDGE_CONFIG_TOKEN;
 
   if (!edgeConfigId || !token) {
     throw new Error(
-      'Faltan EDGE_CONFIG_ID o VERCEL_API_TOKEN en las variables de entorno.'
+      'Faltan EDGE_CONFIG_ID o EDGE_CONFIG_TOKEN en las variables de entorno.'
     );
   }
 

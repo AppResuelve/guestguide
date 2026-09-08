@@ -12,7 +12,9 @@ sin base de datos (usa Vercel Edge Config como almacenamiento).
 4. Copiá su **ID** (aparece en la configuración del store) → variable
    `EDGE_CONFIG_ID`.
 5. Generá un token en **Account Settings → Tokens** con permiso sobre este
-   proyecto → variable `VERCEL_API_TOKEN`.
+   proyecto → variable `EDGE_CONFIG_TOKEN` (ojo: no lo llames
+   `VERCEL_API_TOKEN`, Vercel reserva ese prefijo y no deja crear la
+   variable con ese nombre).
 6. Elegí una contraseña para el panel → variable `ADMIN_PASSWORD`.
 7. Redeployá el proyecto para que tome las variables nuevas.
 8. Entrá a `tudominio.vercel.app/admin`, ingresá la contraseña, y cargá los

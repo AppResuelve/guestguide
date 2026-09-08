@@ -1,8 +1,12 @@
 import { getContacts, getTheme } from '@/lib/edge-config';
 import { Contact } from '@/lib/types';
 
-// Server component: esto corre en cada request, así que cualquier cambio
-// guardado desde /admin se ve reflejado sin necesidad de un nuevo deploy.
+// Sin esto, Next.js intenta pre-renderizar esta página como estática en el
+// build (y falla si todavía no hay EDGE_CONFIG configurada). Forzamos
+// renderizado dinámico: así corre en cada request y los cambios guardados
+// desde /admin se ven reflejados sin necesidad de un nuevo deploy.
+export const dynamic = 'force-dynamic';
+
 export default async function HomePage() {
   const [contacts, theme] = await Promise.all([getContacts(), getTheme()]);
 

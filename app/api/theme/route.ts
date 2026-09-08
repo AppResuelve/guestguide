@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
-import { getTheme } from '@/lib/edge-config';
-import { setTheme } from '@/lib/edge-config-write';
+import { getTheme } from '@/lib/global-config';
+import { setTheme } from '@/lib/global-config-write';
 import { isAuthenticated } from '@/lib/auth';
 import { Theme } from '@/lib/types';
 

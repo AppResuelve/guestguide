@@ -1,0 +1,50 @@
+import { Contact, Theme } from './types';
+
+// Escrituras: el SDK es de solo lectura. Para escribir hay que pegarle a la
+// REST API de Vercel con un token que tenga permiso sobre este Global Config
+// puntual. Esto SOLO corre en rutas de API protegidas por contraseña
+// (ver lib/auth.ts) — nunca se expone al cliente.
+
+interface GlobalConfigItem {
+  operation: 'update' | 'create' | 'delete';
+  key: string;
+  value?: unknown;
+}
+
+async function patchGlobalConfig(items: GlobalConfigItem[]) {
+  const globalConfigId = process.env.GLOBAL_CONFIG_ID;
+  const token = process.env.GLOBAL_CONFIG_TOKEN;
+
+  if (!globalConfigId || !token) {
+    throw new Error(
+      'Faltan GLOBAL_CONFIG_ID o GLOBAL_CONFIG_TOKEN en las variables de entorno.'
+    );
+  }
+
+  const res = await fetch(
+    `https://api.vercel.com/v1/global-config/${globalConfigId}/items`,
+    {
+      method: 'PATCH',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ items }),
+    }
+  );
+
+  if (!res.ok) {
+    const errorBody = await res.text();
+    throw new Error(`No se pudo escribir en Global Config: ${errorBody}`);
+  }
+
+  return res.json();
+}
+
+export async function setContacts(contacts: Contact[]) {
+  await patchGlobalConfig([{ operation: 'update', key: 'contacts', value: contacts }]);
+}
+
+export async function setTheme(theme: Theme) {
+  await patchGlobalConfig([{ operation: 'update', key: 'theme', value: theme }]);
+}

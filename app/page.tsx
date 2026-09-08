@@ -1,4 +1,4 @@
-import { getContacts, getTheme } from '@/lib/edge-config';
+import { getContacts, getTheme } from '@/lib/global-config';
 import { Contact } from '@/lib/types';
 
 // Sin esto, Next.js intenta pre-renderizar esta página como estática en el

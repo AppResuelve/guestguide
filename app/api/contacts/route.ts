@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
-import { getContacts } from '@/lib/edge-config';
-import { setContacts } from '@/lib/edge-config-write';
+import { getContacts } from '@/lib/global-config';
+import { setContacts } from '@/lib/global-config-write';
 import { isAuthenticated } from '@/lib/auth';
 import { Contact } from '@/lib/types';
 

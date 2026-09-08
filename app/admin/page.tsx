@@ -1,5 +1,5 @@
 import { isAuthenticated } from '@/lib/auth';
-import { getContacts, getTheme } from '@/lib/edge-config';
+import { getContacts, getTheme } from '@/lib/global-config';
 import LoginForm from '@/components/LoginForm';
 import AdminDashboard from '@/components/AdminDashboard';
 

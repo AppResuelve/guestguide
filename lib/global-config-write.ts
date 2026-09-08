@@ -1,4 +1,4 @@
-import { Contact, Theme } from './types';
+import { Contact, Theme } from "./types";
 
 // Escrituras: el SDK es de solo lectura. Para escribir hay que pegarle a la
 // REST API de Vercel con un token que tenga permiso sobre este Global Config
@@ -6,7 +6,7 @@ import { Contact, Theme } from './types';
 // (ver lib/auth.ts) — nunca se expone al cliente.
 
 interface GlobalConfigItem {
-  operation: 'update' | 'create' | 'delete';
+  operation: "upsert" | "create" | "delete";
   key: string;
   value?: unknown;
 }
@@ -17,20 +17,20 @@ async function patchGlobalConfig(items: GlobalConfigItem[]) {
 
   if (!globalConfigId || !token) {
     throw new Error(
-      'Faltan GLOBAL_CONFIG_ID o GLOBAL_CONFIG_TOKEN en las variables de entorno.'
+      "Faltan GLOBAL_CONFIG_ID o GLOBAL_CONFIG_TOKEN en las variables de entorno.",
     );
   }
 
   const res = await fetch(
     `https://api.vercel.com/v1/global-config/${globalConfigId}/items`,
     {
-      method: 'PATCH',
+      method: "PATCH",
       headers: {
         Authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({ items }),
-    }
+    },
   );
 
   if (!res.ok) {
@@ -42,9 +42,13 @@ async function patchGlobalConfig(items: GlobalConfigItem[]) {
 }
 
 export async function setContacts(contacts: Contact[]) {
-  await patchGlobalConfig([{ operation: 'update', key: 'contacts', value: contacts }]);
+  await patchGlobalConfig([
+    { operation: "upsert", key: "contacts", value: contacts },
+  ]);
 }
 
 export async function setTheme(theme: Theme) {
-  await patchGlobalConfig([{ operation: 'update', key: 'theme', value: theme }]);
+  await patchGlobalConfig([
+    { operation: "upsert", key: "theme", value: theme },
+  ]);
 }

@@ -1,7 +1,7 @@
 import { isAuthenticated } from '@/lib/auth';
-import { getContacts, getTheme } from '@/lib/global-config';
+import { getContacts, getCategories, getTheme } from '@/lib/global-config';
 import LoginForm from '@/components/LoginForm';
-import AdminDashboard from '@/components/AdminDashboard';
+import AdminShell from '@/components/AdminShell';
 
 export default async function AdminPage() {
   const authed = await isAuthenticated();
@@ -10,7 +10,17 @@ export default async function AdminPage() {
     return <LoginForm />;
   }
 
-  const [contacts, theme] = await Promise.all([getContacts(), getTheme()]);
+  const [contacts, categories, theme] = await Promise.all([
+    getContacts(),
+    getCategories(),
+    getTheme(),
+  ]);
 
-  return <AdminDashboard initialContacts={contacts} initialTheme={theme} />;
+  return (
+    <AdminShell
+      initialContacts={contacts}
+      initialCategories={categories}
+      initialTheme={theme}
+    />
+  );
 }

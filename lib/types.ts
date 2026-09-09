@@ -1,9 +1,18 @@
+export interface Category {
+  id: string;
+  name: string;
+}
+
+export type ContactType = 'call' | 'whatsapp';
+
 export interface Contact {
   id: string;
-  category: string;
+  categoryId: string;
   name: string;
   role?: string;
-  phone: string; // formato: +549XXXXXXXXXX (para el link tel:)
+  phone: string; // formato: +549XXXXXXXXXX
+  contactType: ContactType; // define si el botón llama o abre WhatsApp
+  mapsUrl?: string; // link de Google Maps (opcional) para el ícono de ubicación
 }
 
 export interface Theme {

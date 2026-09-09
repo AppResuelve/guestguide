@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { Theme } from '@/lib/types';
-import Field from './Field';
+import { useState } from "react";
+import { Theme } from "@/lib/types";
+import Field from "./Field";
 
 export default function AparienciaSection({
   theme,
@@ -13,14 +13,14 @@ export default function AparienciaSection({
 }) {
   const [form, setForm] = useState<Theme>(theme);
   const [saving, setSaving] = useState(false);
-  const [message, setMessage] = useState('');
+  const [message, setMessage] = useState("");
 
   async function save() {
     setSaving(true);
-    setMessage('');
+    setMessage("");
     const ok = await onSave(form);
     setSaving(false);
-    setMessage(ok ? 'Apariencia guardada.' : 'Error al guardar la apariencia.');
+    setMessage(ok ? "Apariencia guardada." : "Error al guardar la apariencia.");
   }
 
   return (
@@ -42,7 +42,9 @@ export default function AparienciaSection({
             <input
               type="color"
               value={form.primaryColor}
-              onChange={(e) => setForm({ ...form, primaryColor: e.target.value })}
+              onChange={(e) =>
+                setForm({ ...form, primaryColor: e.target.value })
+              }
               className="w-16 h-10 border border-[#dcd2ba] rounded cursor-pointer"
             />
           </Field>
@@ -50,7 +52,9 @@ export default function AparienciaSection({
             <input
               type="color"
               value={form.accentColor}
-              onChange={(e) => setForm({ ...form, accentColor: e.target.value })}
+              onChange={(e) =>
+                setForm({ ...form, accentColor: e.target.value })
+              }
               className="w-16 h-10 border border-[#dcd2ba] rounded cursor-pointer"
             />
           </Field>
@@ -59,7 +63,18 @@ export default function AparienciaSection({
         <Field label="URL de imagen de portada">
           <input
             value={form.coverImageUrl}
-            onChange={(e) => setForm({ ...form, coverImageUrl: e.target.value })}
+            onChange={(e) =>
+              setForm({ ...form, coverImageUrl: e.target.value })
+            }
+            placeholder="https://..."
+            className="w-full border border-[#dcd2ba] rounded px-3 py-2"
+          />
+        </Field>
+
+        <Field label="URL del logo (circular, se superpone a la portada)">
+          <input
+            value={form.logoUrl}
+            onChange={(e) => setForm({ ...form, logoUrl: e.target.value })}
             placeholder="https://..."
             className="w-full border border-[#dcd2ba] rounded px-3 py-2"
           />
@@ -70,7 +85,7 @@ export default function AparienciaSection({
           disabled={saving}
           className="bg-[#173330] text-white rounded px-4 py-2 disabled:opacity-60"
         >
-          {saving ? 'Guardando...' : 'Guardar apariencia'}
+          {saving ? "Guardando..." : "Guardar apariencia"}
         </button>
       </div>
     </div>

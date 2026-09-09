@@ -3,7 +3,7 @@ export interface Category {
   name: string;
 }
 
-export type ContactType = 'call' | 'whatsapp';
+export type ContactType = "call" | "whatsapp";
 
 export interface Contact {
   id: string;
@@ -19,12 +19,14 @@ export interface Theme {
   primaryColor: string; // hex, ej. "#173330"
   accentColor: string; // hex, ej. "#b4823f"
   coverImageUrl: string; // URL de la imagen de portada del header
+  logoUrl: string;
   hotelName: string;
 }
 
 export const DEFAULT_THEME: Theme = {
-  primaryColor: '#173330',
-  accentColor: '#b4823f',
-  coverImageUrl: '',
-  hotelName: 'Mi Hotel',
+  primaryColor: "#173330",
+  accentColor: "#b4823f",
+  coverImageUrl: "",
+  logoUrl: "",
+  hotelName: "Mi Hotel",
 };

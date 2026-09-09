@@ -10,7 +10,7 @@ export interface Contact {
   categoryId: string;
   name: string;
   role?: string;
-  phone: string; // formato: +549XXXXXXXXXX
+  phone?: string; // formato: +549XXXXXXXXXX
   contactType: ContactType; // define si el botón llama o abre WhatsApp
   mapsUrl?: string; // link de Google Maps (opcional) para el ícono de ubicación
 }

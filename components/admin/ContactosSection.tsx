@@ -53,7 +53,7 @@ export default function ContactosSection({
       categoryId: contact.categoryId,
       name: contact.name,
       role: contact.role ?? "",
-      phone: contact.phone,
+      phone: contact.phone ?? "",
       contactType: contact.contactType,
       mapsUrl: contact.mapsUrl ?? "",
     });
@@ -62,7 +62,11 @@ export default function ContactosSection({
   }
 
   function saveForm() {
-    if (!form.name.trim() || !form.phone.trim() || !form.categoryId) return;
+    if (!form.name.trim() || !form.categoryId) return;
+    if (!form.phone.trim() && !form.mapsUrl.trim()) {
+      setMessage("Cargá al menos un teléfono o una ubicación.");
+      return;
+    }
 
     if (editingId) {
       const next = contacts.map((c) =>
@@ -142,7 +146,7 @@ export default function ContactosSection({
             />
           </Field>
 
-          <Field label="Teléfono">
+          <Field label="Teléfono (opcional si cargás ubicación)">
             <input
               value={form.phone}
               onChange={(e) => setForm({ ...form, phone: e.target.value })}
@@ -214,7 +218,7 @@ export default function ContactosSection({
                   {nameById.get(contact.categoryId) ?? "Sin categoría"}
                 </td>
                 <td className="px-4 py-3">{contact.name}</td>
-                <td className="px-4 py-3">{contact.phone}</td>
+                <td className="px-4 py-3">{contact.phone || "—"}</td>
                 <td className="px-4 py-3">
                   {contact.contactType === "whatsapp" ? "WhatsApp" : "Llamada"}
                 </td>

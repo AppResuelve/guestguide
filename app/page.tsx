@@ -82,58 +82,49 @@ export default async function HomePage() {
                   className="border-b border-[#dcd2ba] last:border-none"
                 >
                   <div className="flex justify-between items-center gap-3 py-3.5">
-                    <a
-                      href={contactHref(contact)}
-                      target={
-                        contact.contactType === "whatsapp"
-                          ? "_blank"
-                          : undefined
-                      }
-                      rel={
-                        contact.contactType === "whatsapp"
-                          ? "noopener"
-                          : undefined
-                      }
-                      className="flex-1 no-underline text-inherit"
-                    >
+                    <div className="flex-1">
                       <span className="text-base">{contact.name}</span>
                       {contact.role && (
                         <span className="block text-xs text-[#6b6858] mt-0.5">
                           {contact.role}
                         </span>
                       )}
-                    </a>
+                    </div>
 
-                    {contact.mapsUrl && (
-                      <a
-                        href={mapsHref(contact.mapsUrl)}
-                        target="_blank"
-                        rel="noopener"
-                        aria-label="Ver ubicación"
-                        className="shrink-0 w-8 h-8 flex items-center justify-center rounded-full border border-[#dcd2ba] text-brand-primary"
-                      >
-                        <MapPinIcon />
-                      </a>
-                    )}
+                    <div className="flex items-center gap-2 shrink-0">
+                      {contact.mapsUrl && (
+                        <a
+                          href={mapsHref(contact.mapsUrl)}
+                          target="_blank"
+                          rel="noopener"
+                          className="flex items-center gap-1.5 text-sm whitespace-nowrap border border-[#dcd2ba] text-brand-primary rounded-full px-3.5 py-1.5"
+                        >
+                          <MapPinIcon />
+                          Ver ubicación
+                        </a>
+                      )}
 
-                    <a
-                      href={contactHref(contact)}
-                      target={
-                        contact.contactType === "whatsapp"
-                          ? "_blank"
-                          : undefined
-                      }
-                      rel={
-                        contact.contactType === "whatsapp"
-                          ? "noopener"
-                          : undefined
-                      }
-                      className="shrink-0 text-sm whitespace-nowrap border border-brand-accent text-brand-accent rounded-full px-3.5 py-1.5"
-                    >
-                      {contact.contactType === "whatsapp"
-                        ? "WhatsApp"
-                        : contact.phone}
-                    </a>
+                      {contact.phone && (
+                        <a
+                          href={contactHref(contact)}
+                          target={
+                            contact.contactType === "whatsapp"
+                              ? "_blank"
+                              : undefined
+                          }
+                          rel={
+                            contact.contactType === "whatsapp"
+                              ? "noopener"
+                              : undefined
+                          }
+                          className="text-sm whitespace-nowrap border border-brand-accent text-brand-accent rounded-full px-3.5 py-1.5"
+                        >
+                          {contact.contactType === "whatsapp"
+                            ? "WhatsApp"
+                            : contact.phone}
+                        </a>
+                      )}
+                    </div>
                   </div>
                 </li>
               ))}
@@ -146,11 +137,12 @@ export default async function HomePage() {
 }
 
 function contactHref(contact: Contact): string {
+  const phone = contact.phone as string; // solo se llama cuando contact.phone existe
   if (contact.contactType === "whatsapp") {
-    const digits = contact.phone.replace(/\D/g, "");
+    const digits = phone.replace(/\D/g, "");
     return `https://wa.me/${digits}`;
   }
-  return `tel:${contact.phone}`;
+  return `tel:${phone}`;
 }
 
 // Acepta tanto un link completo de Google Maps como una dirección en texto

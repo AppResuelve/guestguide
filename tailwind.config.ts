@@ -10,6 +10,11 @@ const config: Config = {
           accent: 'var(--brand-accent)',
         },
       },
+      fontFamily: {
+        title: ['var(--font-title)', 'serif'],
+        body: ['var(--font-body)', 'sans-serif'],
+        admin: ['var(--font-admin)', 'sans-serif'],
+      },
     },
   },
   plugins: [],

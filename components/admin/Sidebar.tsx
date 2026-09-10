@@ -19,9 +19,9 @@ export default function Sidebar({
   onLogout: () => void;
 }) {
   return (
-    <aside className="w-full sm:w-48 shrink-0 border-b sm:border-b-0 sm:border-r border-[#dcd2ba] sm:min-h-screen">
+    <aside className="w-full sm:w-48 shrink-0 border-b sm:border-b-0 sm:border-r border-slate-200 sm:min-h-screen">
       <div className="p-5">
-        <h2 className="text-base font-semibold mb-4">Panel del hotel</h2>
+        <h2 className="text-base font-semibold mb-4 text-slate-900">Admin de Guía</h2>
         <nav className="flex sm:flex-col gap-1 overflow-x-auto">
           {ITEMS.map((item) => (
             <button
@@ -29,8 +29,8 @@ export default function Sidebar({
               onClick={() => onChange(item.id)}
               className={`text-left px-3 py-2 rounded text-sm whitespace-nowrap ${
                 active === item.id
-                  ? 'bg-[#173330] text-white'
-                  : 'text-[#20241f] hover:bg-[#efe9d8]'
+                  ? 'bg-indigo-600 text-white'
+                  : 'text-slate-700 hover:bg-slate-100'
               }`}
             >
               {item.label}
@@ -39,7 +39,7 @@ export default function Sidebar({
         </nav>
         <button
           onClick={onLogout}
-          className="mt-6 text-sm text-[#6b6858] underline hidden sm:block"
+          className="mt-6 text-sm text-slate-500 underline hidden sm:block"
         >
           Cerrar sesión
         </button>

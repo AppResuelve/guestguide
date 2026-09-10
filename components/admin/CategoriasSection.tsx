@@ -76,13 +76,13 @@ export default function CategoriasSection({
         <h1 className="text-xl">Categorías</h1>
         <button
           onClick={() => setShowForm((v) => !v)}
-          className="bg-[#173330] text-white rounded px-4 py-2 text-sm"
+          className="bg-indigo-600 hover:bg-indigo-700 text-white rounded px-4 py-2 text-sm"
         >
           {showForm ? 'Cancelar' : '+ Agregar categoría'}
         </button>
       </div>
 
-      {message && <p className="mb-4 text-sm text-[#173330]">{message}</p>}
+      {message && <p className="mb-4 text-sm text-indigo-700">{message}</p>}
 
       {showForm && (
         <div className="bg-white rounded-lg p-5 mb-6 max-w-sm">
@@ -91,24 +91,26 @@ export default function CategoriasSection({
               value={newName}
               onChange={(e) => setNewName(e.target.value)}
               placeholder="Ej. Emergencias"
-              className="w-full border border-[#dcd2ba] rounded px-3 py-2"
+              className="w-full border border-slate-200 rounded px-3 py-2"
               autoFocus
             />
           </Field>
-          <button
-            onClick={addCategory}
-            disabled={saving}
-            className="bg-[#173330] text-white rounded px-4 py-2 text-sm disabled:opacity-60"
-          >
-            Guardar
-          </button>
+          <div className="flex justify-end">
+            <button
+              onClick={addCategory}
+              disabled={saving}
+              className="bg-indigo-600 hover:bg-indigo-700 text-white rounded px-4 py-2 text-sm disabled:opacity-60"
+            >
+              Guardar
+            </button>
+          </div>
         </div>
       )}
 
       <div className="bg-white rounded-lg overflow-hidden">
         <table className="w-full text-sm">
           <thead>
-            <tr className="text-left border-b border-[#dcd2ba] text-[#6b6858]">
+            <tr className="text-left border-b border-slate-200 text-slate-500">
               <th className="px-4 py-3 font-normal">Nombre</th>
               <th className="px-4 py-3 font-normal">Contactos</th>
               <th className="px-4 py-3 font-normal w-40">Acciones</th>
@@ -117,19 +119,19 @@ export default function CategoriasSection({
           <tbody>
             {categories.length === 0 && (
               <tr>
-                <td colSpan={3} className="px-4 py-6 text-center text-[#6b6858]">
+                <td colSpan={3} className="px-4 py-6 text-center text-slate-500">
                   Todavía no creaste ninguna categoría.
                 </td>
               </tr>
             )}
             {categories.map((cat) => (
-              <tr key={cat.id} className="border-b border-[#dcd2ba] last:border-none">
+              <tr key={cat.id} className="border-b border-slate-200 last:border-none">
                 <td className="px-4 py-3">
                   {editingId === cat.id ? (
                     <input
                       value={editingName}
                       onChange={(e) => setEditingName(e.target.value)}
-                      className="border border-[#dcd2ba] rounded px-2 py-1 text-sm w-full"
+                      className="border border-slate-200 rounded px-2 py-1 text-sm w-full"
                       autoFocus
                     />
                   ) : (
@@ -140,24 +142,24 @@ export default function CategoriasSection({
                 <td className="px-4 py-3 space-x-3">
                   {editingId === cat.id ? (
                     <>
-                      <button onClick={saveEdit} className="text-[#173330] underline">
+                      <button onClick={saveEdit} className="text-indigo-600 underline">
                         Guardar
                       </button>
                       <button
                         onClick={() => setEditingId(null)}
-                        className="text-[#6b6858] underline"
+                        className="text-slate-500 underline"
                       >
                         Cancelar
                       </button>
                     </>
                   ) : (
                     <>
-                      <button onClick={() => startEdit(cat)} className="text-[#173330] underline">
+                      <button onClick={() => startEdit(cat)} className="text-indigo-600 underline">
                         Editar
                       </button>
                       <button
                         onClick={() => removeCategory(cat.id)}
-                        className="text-red-700 underline"
+                        className="text-red-600 underline"
                       >
                         Eliminar
                       </button>

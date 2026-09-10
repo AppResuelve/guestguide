@@ -8,7 +8,7 @@ export default function Field({
 }) {
   return (
     <div className="mb-4">
-      <label className="block text-sm mb-1 text-[#20241f]">{label}</label>
+      <label className="block text-sm mb-1 text-slate-700">{label}</label>
       {children}
     </div>
   );

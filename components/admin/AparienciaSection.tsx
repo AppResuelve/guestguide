@@ -38,6 +38,15 @@ export default function AparienciaSection({
           />
         </Field>
 
+        <Field label="Ubicación (ciudad o dirección) — aparece en el subtítulo y el pie de página">
+          <input
+            value={form.location}
+            onChange={(e) => setForm({ ...form, location: e.target.value })}
+            placeholder="Ej: Resistencia, Chaco"
+            className="w-full border border-slate-200 rounded px-3 py-2"
+          />
+        </Field>
+
         <div className="flex gap-6 mb-4">
           <Field label="Color principal">
             <input

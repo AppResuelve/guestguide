@@ -1,4 +1,4 @@
-import { Contact, Theme, Category } from './types';
+import { Item, Theme, Category, AppConfig } from './types';
 
 // Escrituras: el SDK es de solo lectura. Para escribir hay que pegarle a la
 // REST API de Vercel con un token de cuenta (Account Settings > Tokens, con
@@ -46,8 +46,8 @@ async function patchGlobalConfig(items: GlobalConfigItem[]) {
   return res.json();
 }
 
-export async function setContacts(contacts: Contact[]) {
-  await patchGlobalConfig([{ operation: 'upsert', key: 'contacts', value: contacts }]);
+export async function setItems(items: Item[]) {
+  await patchGlobalConfig([{ operation: 'upsert', key: 'items', value: items }]);
 }
 
 export async function setCategories(categories: Category[]) {
@@ -56,4 +56,8 @@ export async function setCategories(categories: Category[]) {
 
 export async function setTheme(theme: Theme) {
   await patchGlobalConfig([{ operation: 'upsert', key: 'theme', value: theme }]);
+}
+
+export async function setConfig(config: AppConfig) {
+  await patchGlobalConfig([{ operation: 'upsert', key: 'config', value: config }]);
 }

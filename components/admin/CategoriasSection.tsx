@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Category, Contact } from '@/lib/types';
+import { Category, Item } from '@/lib/types';
 import Field from './Field';
 
 function newId() {
@@ -10,11 +10,11 @@ function newId() {
 
 export default function CategoriasSection({
   categories,
-  contacts,
+  items,
   onSave,
 }: {
   categories: Category[];
-  contacts: Contact[];
+  items: Item[];
   onSave: (next: Category[]) => Promise<boolean>;
 }) {
   const [showForm, setShowForm] = useState(false);
@@ -55,7 +55,7 @@ export default function CategoriasSection({
   }
 
   function removeCategory(id: string) {
-    const inUse = contacts.some((c) => c.categoryId === id);
+    const inUse = items.some((c) => c.categoryId === id);
     if (inUse) {
       setMessage('No se puede eliminar: hay contactos usando esta categoría.');
       return;
@@ -67,7 +67,7 @@ export default function CategoriasSection({
   }
 
   function countFor(id: string) {
-    return contacts.filter((c) => c.categoryId === id).length;
+    return items.filter((c) => c.categoryId === id).length;
   }
 
   return (
@@ -112,7 +112,7 @@ export default function CategoriasSection({
           <thead>
             <tr className="text-left border-b border-slate-200 text-slate-500">
               <th className="px-4 py-3 font-normal">Nombre</th>
-              <th className="px-4 py-3 font-normal">Contactos</th>
+              <th className="px-4 py-3 font-normal">Datos</th>
               <th className="px-4 py-3 font-normal w-40">Acciones</th>
             </tr>
           </thead>

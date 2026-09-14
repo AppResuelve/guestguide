@@ -1,12 +1,13 @@
 'use client';
 
-export type Section = 'guia' | 'apariencia' | 'categorias' | 'contactos';
+export type Section = 'guia' | 'apariencia' | 'config' | 'categorias' | 'datos';
 
 const ITEMS: { id: Section; label: string }[] = [
   { id: 'guia', label: 'Guía' },
   { id: 'apariencia', label: 'Apariencia' },
+  { id: 'config', label: 'Configuración' },
   { id: 'categorias', label: 'Categorías' },
-  { id: 'contactos', label: 'Contactos' },
+  { id: 'datos', label: 'Datos' },
 ];
 
 export default function Sidebar({

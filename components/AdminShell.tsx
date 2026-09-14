@@ -1,12 +1,13 @@
 'use client';
 
 import { useState } from 'react';
-import { Contact, Category, Theme } from '@/lib/types';
+import { Item, Category, Theme, AppConfig } from '@/lib/types';
 import Sidebar, { Section } from './admin/Sidebar';
 import GuiaSection from './admin/GuiaSection';
 import AparienciaSection from './admin/AparienciaSection';
+import ConfigSection from './admin/ConfigSection';
 import CategoriasSection from './admin/CategoriasSection';
-import ContactosSection from './admin/ContactosSection';
+import DatosSection from './admin/DatosSection';
 
 async function putJson(url: string, body: unknown) {
   const res = await fetch(url, {
@@ -18,22 +19,25 @@ async function putJson(url: string, body: unknown) {
 }
 
 export default function AdminShell({
-  initialContacts,
+  initialItems,
   initialCategories,
   initialTheme,
+  initialConfig,
 }: {
-  initialContacts: Contact[];
+  initialItems: Item[];
   initialCategories: Category[];
   initialTheme: Theme;
+  initialConfig: AppConfig;
 }) {
   const [section, setSection] = useState<Section>('guia');
   const [categories, setCategories] = useState<Category[]>(initialCategories);
-  const [contacts, setContacts] = useState<Contact[]>(initialContacts);
+  const [items, setItems] = useState<Item[]>(initialItems);
   const [theme, setTheme] = useState<Theme>(initialTheme);
+  const [config, setConfig] = useState<AppConfig>(initialConfig);
 
-  // El estado de categorías/contactos/tema vive acá, un nivel arriba de las
-  // secciones. Así, cuando agregás una categoría y después pasás a
-  // "Contactos", el selector ya la tiene sin necesidad de recargar.
+  // El estado de categorías/datos/tema/config vive acá, un nivel arriba de
+  // las secciones. Así, cuando cambiás algo en una sección y pasás a otra,
+  // ya lo tiene sin necesidad de recargar.
 
   async function saveCategories(next: Category[]): Promise<boolean> {
     const ok = await putJson('/api/categories', next);
@@ -41,15 +45,21 @@ export default function AdminShell({
     return ok;
   }
 
-  async function saveContacts(next: Contact[]): Promise<boolean> {
-    const ok = await putJson('/api/contacts', next);
-    if (ok) setContacts(next);
+  async function saveItems(next: Item[]): Promise<boolean> {
+    const ok = await putJson('/api/items', next);
+    if (ok) setItems(next);
     return ok;
   }
 
   async function saveTheme(next: Theme): Promise<boolean> {
     const ok = await putJson('/api/theme', next);
     if (ok) setTheme(next);
+    return ok;
+  }
+
+  async function saveConfig(next: AppConfig): Promise<boolean> {
+    const ok = await putJson('/api/config', next);
+    if (ok) setConfig(next);
     return ok;
   }
 
@@ -70,19 +80,24 @@ export default function AdminShell({
             <AparienciaSection theme={theme} onSave={saveTheme} />
           )}
 
+          {section === 'config' && (
+            <ConfigSection config={config} onSave={saveConfig} />
+          )}
+
           {section === 'categorias' && (
             <CategoriasSection
               categories={categories}
-              contacts={contacts}
+              items={items}
               onSave={saveCategories}
             />
           )}
 
-          {section === 'contactos' && (
-            <ContactosSection
-              contacts={contacts}
+          {section === 'datos' && (
+            <DatosSection
+              items={items}
               categories={categories}
-              onSave={saveContacts}
+              config={config}
+              onSave={saveItems}
             />
           )}
 
